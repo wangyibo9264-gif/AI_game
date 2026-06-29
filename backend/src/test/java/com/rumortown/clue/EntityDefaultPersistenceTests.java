@@ -62,7 +62,7 @@ class EntityDefaultPersistenceTests {
         ReflectionTestUtils.setField(clue, "clueCode", "clue-defaults");
         ReflectionTestUtils.setField(clue, "title", "Defaults Clue");
         ReflectionTestUtils.setField(clue, "content", "Default content");
-        ReflectionTestUtils.setField(clue, "category", ClueCategory.CONTEXT);
+        ReflectionTestUtils.setField(clue, "category", ClueCategory.EVIDENCE);
         ReflectionTestUtils.setField(clue, "unlockStage", 1);
         caseClueRepository.saveAndFlush(clue);
 

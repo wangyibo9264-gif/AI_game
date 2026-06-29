@@ -1,9 +1,10 @@
 package com.rumortown.clue;
 
 public enum ClueCategory {
-    PHYSICAL,
-    TESTIMONY,
-    DOCUMENT,
-    DIGITAL,
-    CONTEXT
+    PERSON,
+    TIME,
+    LOCATION,
+    EVIDENCE,
+    RULE,
+    CONTRADICTION
 }
