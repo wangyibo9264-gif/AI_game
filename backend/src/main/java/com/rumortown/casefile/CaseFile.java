@@ -36,4 +36,32 @@ public class CaseFile {
 
     protected CaseFile() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public Integer getEstimatedMinutes() {
+        return estimatedMinutes;
+    }
+
+    public CaseStatus getStatus() {
+        return status;
+    }
 }

@@ -1,7 +1,10 @@
 package com.rumortown;
 
+import com.rumortown.casefile.CaseService;
+import com.rumortown.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 @SpringBootTest(
         classes = RumorTownApplication.class,
@@ -13,6 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
         }
 )
 class RumorTownApplicationTests {
+
+    @MockBean
+    private CaseService caseService;
+
+    @MockBean
+    private UserService userService;
 
     @Test
     void contextLoads() {

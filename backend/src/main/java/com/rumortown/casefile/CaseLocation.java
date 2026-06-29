@@ -36,4 +36,24 @@ public class CaseLocation {
 
     protected CaseLocation() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getUnlockStage() {
+        return unlockStage;
+    }
 }

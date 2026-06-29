@@ -26,4 +26,30 @@ public class User {
 
     protected User() {
     }
+
+    private User(String displayName, boolean guest, LocalDateTime createdAt) {
+        this.displayName = displayName;
+        this.guest = guest;
+        this.createdAt = createdAt;
+    }
+
+    public static User guest(String displayName, LocalDateTime createdAt) {
+        return new User(displayName, true, createdAt);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public boolean isGuest() {
+        return guest;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }

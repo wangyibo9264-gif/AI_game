@@ -35,4 +35,20 @@ public class CaseRule {
 
     protected CaseRule() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getRuleCode() {
+        return ruleCode;
+    }
+
+    public String getRuleText() {
+        return ruleText;
+    }
+
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
 }
