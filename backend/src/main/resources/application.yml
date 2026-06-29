@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: ${RUMOR_TOWN_DB_URL:jdbc:mysql://localhost:3306/rumor_town?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${RUMOR_TOWN_DB_USER:root}
+    password: ${RUMOR_TOWN_DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+siliconflow:
+  api-key: ${SILICONFLOW_API_KEY:}
+  base-url: ${SILICONFLOW_BASE_URL:https://api.siliconflow.cn/v1}
+  model: ${SILICONFLOW_MODEL:deepseek-ai/DeepSeek-V4-Pro}
