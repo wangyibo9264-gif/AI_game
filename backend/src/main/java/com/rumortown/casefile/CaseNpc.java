@@ -46,4 +46,32 @@ public class CaseNpc {
 
     protected CaseNpc() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public CaseFile getCaseFile() {
+        return caseFile;
+    }
+
+    public CaseLocation getLocation() {
+        return location;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public Integer getUnlockStage() {
+        return unlockStage;
+    }
 }

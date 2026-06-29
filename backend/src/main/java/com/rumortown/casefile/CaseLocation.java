@@ -37,6 +37,10 @@ public class CaseLocation {
     protected CaseLocation() {
     }
 
+    public CaseFile getCaseFile() {
+        return caseFile;
+    }
+
     public Long getId() {
         return id;
     }

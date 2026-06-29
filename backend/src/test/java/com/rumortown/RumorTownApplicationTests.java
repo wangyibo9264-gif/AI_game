@@ -1,6 +1,7 @@
 package com.rumortown;
 
 import com.rumortown.casefile.CaseService;
+import com.rumortown.game.GameSessionService;
 import com.rumortown.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,9 @@ class RumorTownApplicationTests {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private GameSessionService gameSessionService;
 
     @Test
     void contextLoads() {

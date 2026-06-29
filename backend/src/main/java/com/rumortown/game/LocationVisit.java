@@ -32,4 +32,30 @@ public class LocationVisit {
 
     protected LocationVisit() {
     }
+
+    private LocationVisit(GameSession session, CaseLocation location, LocalDateTime visitedAt) {
+        this.session = session;
+        this.location = location;
+        this.visitedAt = visitedAt;
+    }
+
+    public static LocationVisit record(GameSession session, CaseLocation location, LocalDateTime visitedAt) {
+        return new LocationVisit(session, location, visitedAt);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public GameSession getSession() {
+        return session;
+    }
+
+    public CaseLocation getLocation() {
+        return location;
+    }
+
+    public LocalDateTime getVisitedAt() {
+        return visitedAt;
+    }
 }

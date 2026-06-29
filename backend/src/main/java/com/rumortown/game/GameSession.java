@@ -45,4 +45,50 @@ public class GameSession {
 
     protected GameSession() {
     }
+
+    private GameSession(User user, CaseFile caseFile, LocalDateTime now) {
+        this.user = user;
+        this.caseFile = caseFile;
+        this.currentStage = 1;
+        this.status = SessionStatus.ACTIVE;
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    public static GameSession start(User user, CaseFile caseFile, LocalDateTime now) {
+        return new GameSession(user, caseFile, now);
+    }
+
+    public void advanceTo(int nextStage, LocalDateTime now) {
+        this.currentStage = nextStage;
+        this.updatedAt = now;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public CaseFile getCaseFile() {
+        return caseFile;
+    }
+
+    public int getCurrentStage() {
+        return currentStage;
+    }
+
+    public SessionStatus getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
