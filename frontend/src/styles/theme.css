@@ -1,0 +1,136 @@
+:root {
+  color-scheme: dark;
+  --color-black-green: #07110d;
+  --color-fog-gray: #8d9691;
+  --color-old-paper: #d8c9a3;
+  --color-candle-yellow: #f1b84b;
+  --color-rust-red: #9b332c;
+  --color-ink: #eef3eb;
+  --color-muted: #a8b0aa;
+  --color-panel: rgba(13, 24, 20, 0.78);
+  --color-line: rgba(216, 201, 163, 0.18);
+  --shadow-candle: 0 0 36px rgba(241, 184, 75, 0.12);
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background: var(--color-black-green);
+  color: var(--color-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(241, 184, 75, 0.08), transparent 28rem),
+    linear-gradient(135deg, rgba(7, 17, 13, 0.96), rgba(11, 18, 18, 0.92)),
+    var(--color-black-green);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--color-line);
+  background: rgba(7, 17, 13, 0.82);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-old-paper);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.brand-mark {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--color-candle-yellow);
+  background: var(--color-rust-red);
+  box-shadow: var(--shadow-candle);
+  transform: rotate(45deg);
+}
+
+.topbar-links {
+  display: flex;
+  gap: 18px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.topbar-links a.router-link-active {
+  color: var(--color-candle-yellow);
+}
+
+.app-main {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 42px 0 56px;
+}
+
+.placeholder-view {
+  display: grid;
+  min-height: calc(100vh - 180px);
+  align-content: center;
+  gap: 14px;
+}
+
+.placeholder-kicker {
+  color: var(--color-candle-yellow);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.placeholder-title {
+  max-width: 780px;
+  margin: 0;
+  color: var(--color-old-paper);
+  font-size: clamp(36px, 7vw, 74px);
+  line-height: 1.04;
+}
+
+.placeholder-copy {
+  max-width: 620px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    padding: 0 18px;
+  }
+
+  .topbar-links {
+    gap: 12px;
+  }
+
+  .app-main {
+    width: min(100% - 24px, 1120px);
+    padding-top: 30px;
+  }
+}
