@@ -44,4 +44,45 @@ public class DialogueMessage {
 
     protected DialogueMessage() {
     }
+
+    private DialogueMessage(GameSession session, CaseNpc npc, DialogueSenderType sender, String content, Integer stage, LocalDateTime createdAt) {
+        this.session = session;
+        this.npc = npc;
+        this.sender = sender;
+        this.content = content;
+        this.stage = stage;
+        this.createdAt = createdAt;
+    }
+
+    public static DialogueMessage of(GameSession session, CaseNpc npc, DialogueSenderType sender, String content, LocalDateTime createdAt) {
+        return new DialogueMessage(session, npc, sender, content, session.getCurrentStage(), createdAt);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public GameSession getSession() {
+        return session;
+    }
+
+    public CaseNpc getNpc() {
+        return npc;
+    }
+
+    public DialogueSenderType getSender() {
+        return sender;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Integer getStage() {
+        return stage;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }

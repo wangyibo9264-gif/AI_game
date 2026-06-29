@@ -43,4 +43,47 @@ public class CollectedClue {
 
     protected CollectedClue() {
     }
+
+    private CollectedClue(GameSession session, CaseClue clue, LocalDateTime collectedAt) {
+        this.session = session;
+        this.clue = clue;
+        this.collectedAt = collectedAt;
+    }
+
+    public static CollectedClue collect(GameSession session, CaseClue clue, LocalDateTime collectedAt) {
+        return new CollectedClue(session, clue, collectedAt);
+    }
+
+    public void update(ClueImportance importance, CollectedClueStatus status) {
+        if (importance != null) {
+            this.importance = importance;
+        }
+        if (status != null) {
+            this.status = status;
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public GameSession getSession() {
+        return session;
+    }
+
+    public CaseClue getClue() {
+        return clue;
+    }
+
+    public ClueImportance getImportance() {
+        return importance;
+    }
+
+    public CollectedClueStatus getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCollectedAt() {
+        return collectedAt;
+    }
 }

@@ -1,7 +1,9 @@
 package com.rumortown;
 
 import com.rumortown.casefile.CaseService;
+import com.rumortown.clue.ClueService;
 import com.rumortown.game.GameSessionService;
+import com.rumortown.npc.NpcDialogueService;
 import com.rumortown.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +28,12 @@ class RumorTownApplicationTests {
 
     @MockBean
     private GameSessionService gameSessionService;
+
+    @MockBean
+    private NpcDialogueService npcDialogueService;
+
+    @MockBean
+    private ClueService clueService;
 
     @Test
     void contextLoads() {

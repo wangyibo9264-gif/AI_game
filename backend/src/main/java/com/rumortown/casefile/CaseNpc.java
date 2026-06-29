@@ -71,6 +71,14 @@ public class CaseNpc {
         return roleName;
     }
 
+    public String getPersonality() {
+        return personality;
+    }
+
+    public String getSpeakingStyle() {
+        return speakingStyle;
+    }
+
     public Integer getUnlockStage() {
         return unlockStage;
     }

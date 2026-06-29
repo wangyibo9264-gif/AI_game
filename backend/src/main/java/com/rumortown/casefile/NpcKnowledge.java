@@ -35,4 +35,28 @@ public class NpcKnowledge {
 
     protected NpcKnowledge() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public CaseNpc getNpc() {
+        return npc;
+    }
+
+    public String getKnownFacts() {
+        return knownFacts;
+    }
+
+    public String getRevealableClueCodes() {
+        return revealableClueCodes;
+    }
+
+    public String getHiddenFacts() {
+        return hiddenFacts;
+    }
+
+    public String getForbiddenTopics() {
+        return forbiddenTopics;
+    }
 }

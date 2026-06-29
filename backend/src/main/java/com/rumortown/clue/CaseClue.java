@@ -46,4 +46,36 @@ public class CaseClue {
 
     protected CaseClue() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public CaseFile getCaseFile() {
+        return caseFile;
+    }
+
+    public String getClueCode() {
+        return clueCode;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public ClueCategory getCategory() {
+        return category;
+    }
+
+    public Integer getUnlockStage() {
+        return unlockStage;
+    }
+
+    public boolean isCritical() {
+        return critical;
+    }
 }
