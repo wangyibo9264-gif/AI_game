@@ -46,4 +46,55 @@ public class TruthReport {
 
     protected TruthReport() {
     }
+
+    private TruthReport(GameSession session, SubmitTruthReportRequest request, LocalDateTime createdAt) {
+        this.session = session;
+        this.eventSummary = request.eventSummary();
+        this.responsiblePerson = request.responsiblePerson();
+        this.keyEvidence = request.keyEvidence();
+        this.ruleExplanation = request.ruleExplanation();
+        this.npcLies = request.npcLies();
+        this.conclusion = request.conclusion();
+        this.createdAt = createdAt;
+    }
+
+    public static TruthReport submit(GameSession session, SubmitTruthReportRequest request, LocalDateTime createdAt) {
+        return new TruthReport(session, request, createdAt);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public GameSession getSession() {
+        return session;
+    }
+
+    public String getEventSummary() {
+        return eventSummary;
+    }
+
+    public String getResponsiblePerson() {
+        return responsiblePerson;
+    }
+
+    public String getKeyEvidence() {
+        return keyEvidence;
+    }
+
+    public String getRuleExplanation() {
+        return ruleExplanation;
+    }
+
+    public String getNpcLies() {
+        return npcLies;
+    }
+
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }

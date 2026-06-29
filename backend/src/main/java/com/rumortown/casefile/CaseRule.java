@@ -48,6 +48,10 @@ public class CaseRule {
         return ruleText;
     }
 
+    public String getTruthMeaning() {
+        return truthMeaning;
+    }
+
     public Integer getDisplayOrder() {
         return displayOrder;
     }

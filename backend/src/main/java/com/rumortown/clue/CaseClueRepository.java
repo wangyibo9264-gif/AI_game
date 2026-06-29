@@ -9,4 +9,6 @@ public interface CaseClueRepository extends JpaRepository<CaseClue, Long> {
     List<CaseClue> findByCaseFileIdAndClueCodeIn(Long caseId, Collection<String> clueCodes);
 
     Optional<CaseClue> findByIdAndCaseFileId(Long id, Long caseId);
+
+    long countByCaseFileIdAndCriticalTrue(Long caseId);
 }

@@ -41,4 +41,46 @@ public class ReportScore {
 
     protected ReportScore() {
     }
+
+    private ReportScore(TruthReport report, Integer truthScore, Integer clueScore, Integer ruleScore, String ending, String summary, String missedPoints) {
+        this.report = report;
+        this.truthScore = truthScore;
+        this.clueScore = clueScore;
+        this.ruleScore = ruleScore;
+        this.ending = ending;
+        this.summary = summary;
+        this.missedPoints = missedPoints;
+    }
+
+    public static ReportScore of(TruthReport report, Integer truthScore, Integer clueScore, Integer ruleScore, String ending, String summary, String missedPoints) {
+        return new ReportScore(report, truthScore, clueScore, ruleScore, ending, summary, missedPoints);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Integer getTruthScore() {
+        return truthScore;
+    }
+
+    public Integer getClueScore() {
+        return clueScore;
+    }
+
+    public Integer getRuleScore() {
+        return ruleScore;
+    }
+
+    public String getEnding() {
+        return ending;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getMissedPoints() {
+        return missedPoints;
+    }
 }
