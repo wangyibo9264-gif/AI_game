@@ -2,7 +2,7 @@ spring:
   datasource:
     url: ${RUMOR_TOWN_DB_URL:jdbc:mysql://localhost:3306/rumor_town?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
     username: ${RUMOR_TOWN_DB_USER:root}
-    password: ${RUMOR_TOWN_DB_PASSWORD:root}
+    password: ${RUMOR_TOWN_DB_PASSWORD:123456}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -11,6 +11,6 @@ spring:
     enabled: true
 
 siliconflow:
-  api-key: ${SILICONFLOW_API_KEY:}
+  api-key: ${SILICONFLOW_API_KEY:sk-hepdfbzcsohulelivnneebwyrqluucflaefwrsynkijdyasx}
   base-url: ${SILICONFLOW_BASE_URL:https://api.siliconflow.cn/v1}
   model: ${SILICONFLOW_MODEL:deepseek-ai/DeepSeek-V4-Pro}
