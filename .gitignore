@@ -6,3 +6,6 @@ frontend/dist/
 .env.*
 !.env.example
 *.log
+.idea/
+backend/.idea/
+*.zip
