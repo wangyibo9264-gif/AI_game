@@ -14,14 +14,16 @@
     </p>
 
     <div class="investigation-layout" v-if="sessionStore.session">
-      <LocationPanel
-        :locations="sessionStore.session.availableLocations"
+      <CaseMapPanel
+        :case-id="sessionStore.session.caseId"
+        :locations="mapLocations"
+        :available-location-ids="availableLocationIds"
         :active-location-id="activeLocationId"
         @visit="visitLocation"
       />
 
       <NpcDialoguePanel
-        :npcs="sessionStore.session.availableNpcs"
+        :npcs="visibleNpcs"
         :selected-npc-id="selectedNpcId"
         :messages="messages"
         :loading="dialogueStore.loading"
@@ -38,16 +40,18 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import CaseMapPanel from '../components/CaseMapPanel.vue';
 import ClueArchivePanel from '../components/ClueArchivePanel.vue';
-import LocationPanel from '../components/LocationPanel.vue';
 import NpcDialoguePanel, { type DialogueLine } from '../components/NpcDialoguePanel.vue';
 import type { ClueImportance, CollectedClueStatus } from '../api/clues';
+import { useCaseStore } from '../stores/caseStore';
 import { useClueStore } from '../stores/clueStore';
 import { useDialogueStore } from '../stores/dialogueStore';
 import { useSessionStore } from '../stores/sessionStore';
 
 const props = defineProps<{ sessionId: string }>();
 const sessionStore = useSessionStore();
+const caseStore = useCaseStore();
 const clueStore = useClueStore();
 const dialogueStore = useDialogueStore();
 const activeLocationId = ref<number | null>(null);
@@ -56,17 +60,27 @@ const messages = ref<DialogueLine[]>([]);
 const stageBanner = ref('');
 
 const currentStage = computed(() => sessionStore.session?.currentStage ?? 0);
+const mapLocations = computed(() => caseStore.currentCase?.locations ?? sessionStore.session?.availableLocations ?? []);
+const availableLocationIds = computed(() => sessionStore.session?.availableLocations.map((location) => location.id) ?? []);
+const visibleNpcs = computed(() => {
+  if (!activeLocationId.value) return sessionStore.session?.availableNpcs ?? [];
+  return sessionStore.session?.availableNpcs.filter((npc) => npc.locationId === activeLocationId.value) ?? [];
+});
 
 onMounted(async () => {
   await sessionStore.loadSession(props.sessionId);
-  selectedNpcId.value = sessionStore.session?.availableNpcs[0]?.id ?? null;
+  if (sessionStore.session) {
+    await caseStore.loadCase(sessionStore.session.caseId);
+  }
   activeLocationId.value = sessionStore.session?.availableLocations[0]?.id ?? null;
+  selectedNpcId.value = visibleNpcs.value[0]?.id ?? null;
   await clueStore.loadClues(props.sessionId);
 });
 
 async function visitLocation(locationId: number) {
   activeLocationId.value = locationId;
   await sessionStore.visit(props.sessionId, locationId);
+  selectedNpcId.value = visibleNpcs.value[0]?.id ?? null;
 }
 
 async function askNpc(question: string) {
