@@ -9,3 +9,6 @@ frontend/dist/
 .idea/
 backend/.idea/
 *.zip
+
+.superpowers/
+dialogue-ui-preview.html
