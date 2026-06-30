@@ -72,6 +72,8 @@ describe('CaseDetailView', () => {
     await wrapper.get('.start-button').trigger('click');
     await flushPromises();
 
+    expect(wrapper.get('.mission-brief').text()).toContain('\u672C\u6848\u4EFB\u52A1');
+    expect(wrapper.get('.mission-brief').text()).toContain('\u91CD\u70B9\u8FFD\u67E5\u4E09\u70B9\u5341\u4E03\u5206');
     expect(apiMocks.getCase).toHaveBeenCalledWith('1');
     expect(apiMocks.createGuest).toHaveBeenCalledTimes(1);
     expect(apiMocks.createSession).toHaveBeenCalledWith(7, 1);

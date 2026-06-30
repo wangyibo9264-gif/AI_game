@@ -61,10 +61,16 @@ describe('TruthReportView', () => {
   it('submits report with collected clues and routes to result', async () => {
     const wrapper = mount(TruthReportView, {
       props: { sessionId: '9' },
-      global: { plugins: [createPinia()] }
+      global: {
+        plugins: [createPinia()],
+        stubs: {
+          RouterLink: { props: ['to'], template: '<a class="back-link" :href="to"><slot /></a>' }
+        }
+      }
     });
 
     await flushPromises();
+    expect(wrapper.get('.back-link').attributes('href')).toBe('/sessions/9');
     const fields = wrapper.findAll('textarea');
     for (const field of fields) {
       await field.setValue('filled answer');

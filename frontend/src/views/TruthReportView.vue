@@ -1,8 +1,11 @@
 <template>
   <section class="truth-report-view" aria-label="&#x771F;&#x76F8;&#x62A5;&#x544A;">
     <div class="truth-report-view__head">
-      <p class="placeholder-kicker">&#x771F;&#x76F8;&#x62A5;&#x544A; / Session {{ sessionId }}</p>
-      <h1>&#x628A;&#x8C23;&#x96FE;&#x540E;&#x7684;&#x4EBA;&#x5199;&#x4E0B;&#x6765;&#x3002;</h1>
+      <div>
+        <p class="placeholder-kicker">&#x771F;&#x76F8;&#x62A5;&#x544A; / Session {{ sessionId }}</p>
+        <h1>&#x628A;&#x8C23;&#x96FE;&#x540E;&#x7684;&#x4EBA;&#x5199;&#x4E0B;&#x6765;&#x3002;</h1>
+      </div>
+      <RouterLink class="back-link" :to="`/sessions/${sessionId}`">&#x8FD4;&#x56DE;&#x8BE2;&#x95EE;&#x9875;&#x9762;</RouterLink>
     </div>
 
     <div class="truth-report-layout">
@@ -84,12 +87,28 @@ async function submit() {
   gap: 28px;
 }
 
+.truth-report-view__head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
 .truth-report-view__head h1 {
   max-width: 820px;
   margin: 8px 0 0;
   color: var(--color-old-paper);
   font-size: clamp(36px, 7vw, 72px);
   line-height: 1.04;
+}
+
+.back-link {
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 1px solid rgba(241, 184, 75, 0.45);
+  border-radius: 6px;
+  color: var(--color-candle-yellow);
+  font-weight: 800;
 }
 
 .truth-report-layout {
@@ -182,6 +201,11 @@ async function submit() {
 }
 
 @media (max-width: 860px) {
+  .truth-report-view__head {
+    align-items: start;
+    flex-direction: column;
+  }
+
   .truth-report-layout {
     grid-template-columns: 1fr;
   }
