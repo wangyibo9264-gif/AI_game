@@ -35,8 +35,11 @@ export interface SessionDetail {
 }
 
 export interface VisitLocationResponse {
-  session: SessionDetail;
-  location: AvailableLocation;
+  id: number;
+  sessionId: number;
+  locationId: number;
+  locationCode: string;
+  visitedAt: string;
 }
 
 export interface NpcDialogueResponse {

@@ -57,7 +57,7 @@ export const useSessionStore = defineStore('sessionStore', {
     },
     async visit(sessionId: number | string, locationId: number | string) {
       const response = await visitLocation(sessionId, locationId);
-      this.session = response.session;
+      this.session = await getSession(sessionId);
       return response;
     },
     async advance(sessionId: number | string) {
