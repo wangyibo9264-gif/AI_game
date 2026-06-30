@@ -10,7 +10,7 @@ const locations = [
 ];
 
 describe('CaseMapPanel', () => {
-  it('renders a case-specific map and emits visits only for unlocked locations', async () => {
+  it('renders a case-specific map and emits visits or locked clicks', async () => {
     const wrapper = mount(CaseMapPanel, {
       props: {
         caseId: 1,
@@ -20,13 +20,14 @@ describe('CaseMapPanel', () => {
       }
     });
 
-    expect(wrapper.text()).toContain('旧镇中心图');
+    expect(wrapper.text()).toContain('\u65E7\u9547\u4E2D\u5FC3\u56FE');
     expect(wrapper.find('[data-location-code="CLOCK_TOWER"]').classes()).toContain('map-node--active');
-    expect(wrapper.find('[data-location-code="MINE_GATE"]').attributes('disabled')).toBeDefined();
+    expect(wrapper.find('[data-location-code="MINE_GATE"]').attributes('aria-disabled')).toBe('true');
 
     await wrapper.find('[data-location-code="TOWN_HALL"]').trigger('click');
     await wrapper.find('[data-location-code="MINE_GATE"]').trigger('click');
 
     expect(wrapper.emitted('visit')).toEqual([[2]]);
+    expect(wrapper.emitted('locked')?.[0]?.[0]).toMatchObject({ id: 3, unlockStage: 2 });
   });
 });

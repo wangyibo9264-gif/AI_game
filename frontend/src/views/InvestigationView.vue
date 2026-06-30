@@ -5,10 +5,21 @@
         <p class="placeholder-kicker">&#x8C03;&#x67E5;&#x4F1A;&#x8BDD; / Session {{ sessionId }}</p>
         <h1>&#x73B0;&#x573A;&#x8BB0;&#x5F55;</h1>
       </div>
-      <RouterLink class="report-link" :to="`/sessions/${sessionId}/report`">&#x6574;&#x7406;&#x771F;&#x76F8;&#x62A5;&#x544A;</RouterLink>
+      <div class="investigation-actions">
+        <button class="mission-toggle" type="button" @click="missionOpen = !missionOpen">&#x6848;&#x4EF6;&#x4EFB;&#x52A1;</button>
+        <RouterLink class="report-link" :to="`/sessions/${sessionId}/report`">&#x6574;&#x7406;&#x771F;&#x76F8;&#x62A5;&#x544A;</RouterLink>
+      </div>
     </header>
 
+    <section v-if="missionOpen" class="mission-drawer" aria-label="&#x6848;&#x4EF6;&#x4EFB;&#x52A1;">
+      <h2>&#x6848;&#x4EF6;&#x4EFB;&#x52A1;</h2>
+      <ul>
+        <li v-for="requirement in taskRequirements" :key="requirement">{{ requirement }}</li>
+      </ul>
+    </section>
+
     <p v-if="stageBanner" class="stage-banner">{{ stageBanner }}</p>
+    <p v-if="unlockHint" class="unlock-hint">{{ unlockHint }}</p>
     <p v-if="sessionStore.error || clueStore.error || dialogueStore.error" class="state-line state-line--danger">
       {{ sessionStore.error || clueStore.error || dialogueStore.error }}
     </p>
@@ -20,6 +31,7 @@
         :available-location-ids="availableLocationIds"
         :active-location-id="activeLocationId"
         @visit="visitLocation"
+        @locked="showUnlockHint"
       />
 
       <NpcDialoguePanel
@@ -44,6 +56,8 @@ import CaseMapPanel from '../components/CaseMapPanel.vue';
 import ClueArchivePanel from '../components/ClueArchivePanel.vue';
 import NpcDialoguePanel, { type DialogueLine } from '../components/NpcDialoguePanel.vue';
 import type { ClueImportance, CollectedClueStatus } from '../api/clues';
+import type { AvailableLocation } from '../api/sessions';
+import { buildCaseRequirements, describeUnlockRequirement } from '../utils/caseMission';
 import { useCaseStore } from '../stores/caseStore';
 import { useClueStore } from '../stores/clueStore';
 import { useDialogueStore } from '../stores/dialogueStore';
@@ -58,10 +72,13 @@ const activeLocationId = ref<number | null>(null);
 const selectedNpcId = ref<number | null>(null);
 const messages = ref<DialogueLine[]>([]);
 const stageBanner = ref('');
+const unlockHint = ref('');
+const missionOpen = ref(false);
 
 const currentStage = computed(() => sessionStore.session?.currentStage ?? 0);
 const mapLocations = computed(() => caseStore.currentCase?.locations ?? sessionStore.session?.availableLocations ?? []);
 const availableLocationIds = computed(() => sessionStore.session?.availableLocations.map((location) => location.id) ?? []);
+const taskRequirements = computed(() => buildCaseRequirements(caseStore.currentCase?.code));
 const visibleNpcs = computed(() => {
   if (!activeLocationId.value) return sessionStore.session?.availableNpcs ?? [];
   return sessionStore.session?.availableNpcs.filter((npc) => npc.locationId === activeLocationId.value) ?? [];
@@ -78,9 +95,14 @@ onMounted(async () => {
 });
 
 async function visitLocation(locationId: number) {
+  unlockHint.value = '';
   activeLocationId.value = locationId;
   await sessionStore.visit(props.sessionId, locationId);
   selectedNpcId.value = visibleNpcs.value[0]?.id ?? null;
+}
+
+function showUnlockHint(location: AvailableLocation) {
+  unlockHint.value = `${location.name}\uFF1A${describeUnlockRequirement(location.unlockStage, currentStage.value)}`;
 }
 
 async function askNpc(question: string) {
@@ -129,16 +151,53 @@ async function refreshStage(beforeStage: number) {
   line-height: 1.05;
 }
 
+.investigation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.mission-toggle,
 .report-link {
   min-height: 40px;
   padding: 10px 14px;
   border: 1px solid rgba(241, 184, 75, 0.45);
   border-radius: 6px;
   color: var(--color-candle-yellow);
+  background: rgba(7, 17, 13, 0.36);
   font-weight: 800;
 }
 
-.stage-banner {
+.mission-toggle {
+  cursor: pointer;
+}
+
+.mission-drawer {
+  display: grid;
+  gap: 10px;
+  padding: 14px 0;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.mission-drawer h2 {
+  margin: 0;
+  color: var(--color-old-paper);
+  font-size: 18px;
+}
+
+.mission-drawer ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 18px;
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+.stage-banner,
+.unlock-hint {
   margin: 0;
   padding: 10px 12px;
   border: 1px solid rgba(241, 184, 75, 0.45);

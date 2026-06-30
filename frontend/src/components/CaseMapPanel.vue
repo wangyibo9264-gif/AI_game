@@ -16,7 +16,7 @@
         :key="location.id"
         type="button"
         :data-location-code="location.code"
-        :disabled="!location.unlocked"
+        :aria-disabled="!location.unlocked"
         :class="[
           'map-node',
           { 'map-node--active': location.id === activeLocationId, 'map-node--locked': !location.unlocked }
@@ -68,7 +68,7 @@ const props = defineProps<{
   activeLocationId: number | null;
 }>();
 
-const emit = defineEmits<{ visit: [locationId: number] }>();
+const emit = defineEmits<{ visit: [locationId: number]; locked: [location: AvailableLocation] }>();
 
 const mapDefinitions: Record<string, MapDefinition> = {
   clock: {
@@ -173,7 +173,10 @@ const activeLocation = computed(() => {
 });
 
 function visit(location: PositionedLocation) {
-  if (!location.unlocked) return;
+  if (!location.unlocked) {
+    emit('locked', location);
+    return;
+  }
   emit('visit', location.id);
 }
 </script>
@@ -276,14 +279,14 @@ function visit(location: PositionedLocation) {
   z-index: 1;
 }
 
-.map-node:hover:not(:disabled) {
+.map-node:hover {
   border-color: rgba(155, 51, 44, 0.78);
   box-shadow: 0 10px 24px rgba(7, 17, 13, 0.24);
   transform: translate(-50%, -52%) rotate(0deg);
 }
 
-.map-node:disabled {
-  cursor: not-allowed;
+.map-node--locked {
+  cursor: help;
 }
 
 .map-node__pin {
